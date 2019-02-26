@@ -3,15 +3,20 @@
     <id>bplog</id>
     <name>Blood Pressure Log</name>
 	<summary>ownCloud app for tracking your blood pressure</summary>
-    <description>Helps tracking your blood pressure</description>
+    <description>
+Helps tracking your blood pressure.
+Instead of writing down your blood pressure measurements into a small booklet, known as *blood pressure passport*, you can put them into this app.
+**Benefit:** You always can see the average values over all measurements.
+	</description>
 	<author>Alfred Bühler</author>
     <version>0.1.0</version>
     <licence>AGPL</licence>
     <namespace>BPLog</namespace>
     <category>tools</category>
 	<screenshot>https://raw.githubusercontent.com/alfredbuehler/bplog/master/screenshots/main.png</screenshot>
+	<website>https://github.com/alfredbuehler/bplog</website>
 	<bugs>https://github.com/alfredbuehler/bplog/issues</bugs>
     <dependencies>
-        <owncloud min-version="8.1" max-version="10" />
+        <owncloud min-version="9.0" max-version="10" />
     </dependencies>
 </info>
