@@ -63,6 +63,7 @@ appstore:
 	--exclude=/.git \
 	--exclude=/.gitignore \
 	--exclude=/build/ \
+	--exclude=/screenshots/ \
 	--exclude=/client/ \
 	--exclude=/tools/ \
 	--exclude=/Makefile
