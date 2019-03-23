@@ -40,17 +40,50 @@ class LogService {
 		}
 	}
 
-	public function create($systole, $diastole, $pulse, $userId) {
+	public function create($created, $systole, $diastole, $pulse, $userId) {
 
-		$log = new Log();
+		try {
+			$log = new Log();
 
-		$log->setSystole($systole);
-		$log->setDiastole($diastole);
-		$log->setPulse($pulse);
-        $log->setCreated(\time());
-		$log->setUserId($userId);
+			// if ($created) {
+			// 	$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $created, new \DateTimeZone('Europe/Berlin'));
+			// 	if ($dt === false) throw new BadDateException(); // -> internat server error
+			//
+			// 	$ts = $dt->getTimestamp();
+			// } else {
+			// 	$ts = \time();
+			// }
 
-		return $this->mapper->insert($log);
+	        $log->setCreated($created);
+
+			$log->setSystole($systole);
+			$log->setDiastole($diastole);
+			$log->setPulse($pulse);
+
+			$log->setUserId($userId);
+
+			return $this->mapper->insert($log);
+
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
+
+
+	}
+
+	public function update($id, $created, $systole, $diastole, $pulse, $userId) {
+		try {
+			$log = $this->find($id, $userId);
+
+			$log->setCreated($created);	// $created in ticks
+			$log->setSystole($systole);
+			$log->setDiastole($diastole);
+			$log->setPulse($pulse);
+
+			return $this->mapper->update($log);
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
 	}
 
 	public function destroy($id,$userId) {

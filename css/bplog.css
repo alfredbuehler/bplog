@@ -31,10 +31,14 @@ input {
     margin-right: 5px;
 }
 
-#submit {
+button {
     width: 100px;
     margin-left: 109px;
 }
+
+/* button#cancel {
+	visibility: hidden;
+} */
 
 th, td {
     width: 50px;
@@ -57,4 +61,29 @@ th, td.label {
 
 .icon {
 	background-image: none;
+}
+
+.icon-delete:hover {
+	background-image: url('../../../core/img/actions/delete.svg');
+}
+
+.icon-edit:hover {
+	background-image: url('../../../core/img/actions/rename.svg');
+}
+
+#app-sidebar .updatecontainer {
+	padding-left: 15px;
+}
+
+#app-sidebar .close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 15px;
+	opacity: .5;
+}
+
+input.invalid {
+	border-width: 2px;
+  	border-color: red;
 }

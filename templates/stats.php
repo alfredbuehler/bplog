@@ -10,35 +10,36 @@ function statrow($item) {
 ?>
 
 <div id='right'>
-	<h3>Statistics</h3>
+	<div id='stats-container'>
+		<h3>Statistics</h3>
 
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th>Systole</th>
-				<th>Diastole</th>
-				<th>Pulse</th>
-			</tr>
-		</thead>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Systole</th>
+					<th>Diastole</th>
+					<th>Pulse</th>
+				</tr>
+			</thead>
 
-		<tbody>
-			<tr>
-				<td class="label">Avg</td>
-                <?php statrow($_['stdata']['avg']); ?>
-			</tr>
+			<tbody>
+				<tr>
+					<td class="label">Avg</td>
+	                <?php statrow($_['stdata']['avg']); ?>
+				</tr>
 
-			<tr>
-				<td class="label">Min</td>
-                <?php statrow($_['stdata']['min']); ?>
-			</tr>
+				<tr>
+					<td class="label">Min</td>
+	                <?php statrow($_['stdata']['min']); ?>
+				</tr>
 
-			<tr>
-				<td class="label">Max</td>
-                <?php statrow($_['stdata']['max']); ?>
-			</tr>
+				<tr>
+					<td class="label">Max</td>
+	                <?php statrow($_['stdata']['max']); ?>
+				</tr>
 
-		</tbody>
-	</table>
-
+			</tbody>
+		</table>
+	</div>
 </div>

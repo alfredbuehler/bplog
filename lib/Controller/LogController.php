@@ -52,9 +52,19 @@ class LogController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
-	public function create($systole, $diastole, $pulse) {
-		$this->service->create($systole, $diastole, $pulse, $this->userId);
-		return $this->getRedirectResponse();
+	public function create($created, $systole, $diastole, $pulse) {
+		$this->service->create($created, $systole, $diastole, $pulse, $this->userId);
+		// return $this->getRedirectResponse();
+		return new DataResponse(array('success' => true));
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 */
+	public function update($id, $created, $systole, $diastole, $pulse) {
+		$this->service->update($id, $created, $systole, $diastole, $pulse, $this->userId);
+		return new DataResponse(array('success' => true));
 	}
 
 	/**

@@ -11,14 +11,14 @@
 			<ul class="settings-fieldset-interior">
 
 				<li class="settings-fieldset-interior-item">
-					<input class="checkbox" type="checkbox" id="newontop" />
+					<input type='checkbox' class='checkbox' id="newontop" />
 					<label class="checkbox" for="newontop">
 						<?php p($l->t('New on top')); ?>
 					</label>
 				</li>
 
 				<li class="settings-fieldset-interior-item">
-					<input class="checkbox" type="checkbox" id="stats" />
+					<input type="checkbox" class='checkbox' id="stats" />
 					<label class="checkbox" for="stats">
 						<?php p($l->t('Statistics')); ?>
 					</label>

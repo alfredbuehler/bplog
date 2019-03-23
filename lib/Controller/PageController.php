@@ -40,11 +40,7 @@ class PageController extends Controller {
 
         $params['settings'] = $this->settings->get();
 		$params['logs'] = $this->service->findAll($this->userId, $params['settings']['newontop']);
-		$params['url'] = $this->urlGenerator->linkToRoute('bplog.log.create');
-
-        if ($params['settings']['stats'] != '0') {
-			$params['stdata'] = $this->service->getStats($this->userId);
-		}
+		$params['stdata'] = $this->service->getStats($this->userId);
 
 		return new TemplateResponse('bplog', 'main', $params);
 	}
