@@ -31,7 +31,7 @@ class LogapiController extends ApiController {
 	 */
 	public function create($sys, $dia, $hrt) {
         $userId = $this->userSession->getUser()->getUID();
-        return $this->service->create($sys, $dia, $hrt, $userId);
+        return $this->service->create(\time(), $sys, $dia, $hrt, $userId);
 	}
 
 }
