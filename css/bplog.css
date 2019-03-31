@@ -36,10 +36,6 @@ button {
     margin-left: 109px;
 }
 
-/* button#cancel {
-	visibility: hidden;
-} */
-
 th, td {
     width: 50px;
     padding: 3px;
@@ -69,18 +65,6 @@ th, td.label {
 
 .icon-edit:hover {
 	background-image: url('../../../core/img/actions/rename.svg');
-}
-
-#app-sidebar .updatecontainer {
-	padding-left: 15px;
-}
-
-#app-sidebar .close {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 15px;
-	opacity: .5;
 }
 
 input.invalid {

@@ -45,21 +45,10 @@ class LogService {
 		try {
 			$log = new Log();
 
-			// if ($created) {
-			// 	$dt = \DateTime::createFromFormat('Y-m-d H:i:s', $created, new \DateTimeZone('Europe/Berlin'));
-			// 	if ($dt === false) throw new BadDateException(); // -> internat server error
-			//
-			// 	$ts = $dt->getTimestamp();
-			// } else {
-			// 	$ts = \time();
-			// }
-
 	        $log->setCreated($created);
-
 			$log->setSystole($systole);
 			$log->setDiastole($diastole);
 			$log->setPulse($pulse);
-
 			$log->setUserId($userId);
 
 			return $this->mapper->insert($log);
@@ -67,8 +56,6 @@ class LogService {
 		} catch(Exception $e) {
 			$this->handleException($e);
 		}
-
-
 	}
 
 	public function update($id, $created, $systole, $diastole, $pulse, $userId) {

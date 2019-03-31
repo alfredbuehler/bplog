@@ -54,7 +54,6 @@ class LogController extends Controller {
 	 */
 	public function create($created, $systole, $diastole, $pulse) {
 		$this->service->create($created, $systole, $diastole, $pulse, $this->userId);
-		// return $this->getRedirectResponse();
 		return new DataResponse(array('success' => true));
 	}
 

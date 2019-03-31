@@ -1,12 +1,4 @@
 
-// (function() {
-//
-//     if (!OCA.BPLog) {
-//         OCA.BPLog = {};
-// 	}
-//
-// })();
-
 (function ($, OC) {
 
     var refreshPage = function() {
