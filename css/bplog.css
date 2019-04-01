@@ -36,6 +36,10 @@ button {
     margin-left: 109px;
 }
 
+li.settings-fieldset-interior-item > button {
+     margin-left: 0px;
+}
+
 th, td {
     width: 50px;
     padding: 3px;
