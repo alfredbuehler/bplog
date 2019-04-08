@@ -68,7 +68,7 @@
 
 		// Settings
 
-		$('.settings-fieldset .checkbox').change(function(e) {
+		$('.settings-fieldset .setting').change(function(e) {
 			var url = OC.generateUrl('/apps/bplog/config?key='
 				+ $(this).attr('id') + '&value=')
 				+ (e.target.checked ? '1' : '0');
@@ -181,6 +181,39 @@
 			$('#created').removeClass('invalid');
 			$('#created').attr('disabled', checked = e.target.checked);
 			$('#created').val(checked ? '' : getTimeStamp());
+		});
+
+		$('#log-import').click(function(){
+			$('#bp-import').click();
+		});
+
+		$('#bp-import').change(function(){
+
+			var url = OC.generateUrl('/apps/bplog/import');
+			var cbxClear = $('#bp-clear');
+
+			url += '?clear=' + (cbxClear.prop('checked') ? 1 : 0);
+ 			cbxClear.prop('checked', false);
+
+			$.ajax({
+				url: url,
+				type: 'post',
+				data: new FormData($('form#upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data) {
+					if (data.success) {
+						OC.Notification.showTemporary(t('bplog', 'Import successful'));
+						refreshPage();
+					} else {
+						OC.Notification.showTemporary(t('bplog', 'Import failed: ' + data.error));
+					}
+				},
+				error:  function(data) {
+					OC.Notification.showTemporary(t('bplog', 'Request failed'));
+				},
+			});
 		});
 	});
 

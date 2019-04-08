@@ -57,4 +57,10 @@ class LogMapper extends Mapper {
             'max' => $this->getStatsItem($userId, 'max')
         ];
     }
+
+	public function clearAll($userId) {
+		$sql = 'DELETE FROM *PREFIX*bplog_logs WHERE user_id = ?';
+		$this->execute($sql, [$userId]);
+	}
+
 }

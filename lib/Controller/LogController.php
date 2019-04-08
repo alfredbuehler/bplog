@@ -16,6 +16,7 @@ class LogController extends Controller {
 	private $service;
     private $userId;
     private $settings;
+	protected $request;
 
 	public function __construct($AppName,
 								IRequest $request,
@@ -29,10 +30,10 @@ class LogController extends Controller {
 		$this->service = $service;
         $this->userId = $userId;
         $this->settings = $settings;
+		$this->request = $request;
 	}
 
    /**
-	 * Returns a redirect response
 	 * @return RedirectResponse
 	 */
 	private function getRedirectResponse() {
@@ -51,6 +52,8 @@ class LogController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
 	public function create($created, $systole, $diastole, $pulse) {
 		$this->service->create($created, $systole, $diastole, $pulse, $this->userId);
@@ -60,6 +63,8 @@ class LogController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
 	public function update($id, $created, $systole, $diastole, $pulse) {
 		$this->service->update($id, $created, $systole, $diastole, $pulse, $this->userId);
@@ -69,6 +74,8 @@ class LogController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
 	public function destroy($id) {
         $this->service->destroy($id, $this->userId);
@@ -81,6 +88,36 @@ class LogController extends Controller {
 	 */
 	public function export() {
 		return new ExportResponse($this->service->export($this->userId));
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
+	 */
+	public function import($clear) {
+
+		$file = $this->request->getUploadedFile('bp-import');
+		$error = array();
+
+		if (empty($file)) {
+			$error[] = 'No file provided for import';
+		} else {
+			if ($file['type'] === 'text/csv') {
+				if ($clear == '1') {
+					$this->service->clearAll($this->userId);
+				}
+				$error = $this->service->import($file['tmp_name'], $this->userId);
+				if (empty($error)) {
+					return new DataResponse(array('success' => true));
+				}
+			} else {
+				$error[] = 'Unsupported file type for import';
+			}
+		}
+
+		return new DataResponse(array('success' => false, 'error' => $error[0]));
 	}
 
 	/**

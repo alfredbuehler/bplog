@@ -97,8 +97,47 @@ class LogService {
 		return $file;
 	}
 
+	public function import($file, $userId) {
+
+		$rc = array();
+
+		if (($handle = fopen($file, 'r')) !== false) {
+
+			fgets($handle, 64);
+			$row = 1;
+
+			while (($data = fgetcsv($handle, 64, ';')) !== false) {
+
+				if (count($data) !== 4)  {
+					$rc[] = 'Syntax error at line ' . $row;
+					break;
+				}
+
+ 				$date = \DateTime::createFromFormat('Y-m-d H:i:s', $data[0],
+					new \DateTimeZone('Europe/Berlin'));
+				if ($date === false) {
+					$rc[] = 'Invalid date at line ' . $row;
+					break;
+				}
+
+				$this->create($date->getTimestamp (), $data[1], $data[2], $data[3], $userId);
+				$row++;
+			}
+
+			fclose($handle);
+
+		} else {
+			$rc[] = 'fopen error';
+		}
+
+		return $rc;
+	}
+
 	public function getStats($userId) {
         return $this->mapper->getStats($userId);
 	}
 
+	public function clearAll($userId) {
+		$this->mapper->clearAll($userId);
+	}
 }
