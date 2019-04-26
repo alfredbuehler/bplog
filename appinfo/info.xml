@@ -9,7 +9,7 @@ Instead of writing down your blood pressure measurements into a small booklet, k
 **Benefit:** You always can see the average values over all measurements.
 	</description>
 	<author>Alfred Bühler</author>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <licence>AGPL</licence>
     <namespace>BPLog</namespace>
     <category>tools</category>
