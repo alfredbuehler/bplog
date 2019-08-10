@@ -55,6 +55,15 @@
 		$('#cancel').show();
 	}
 
+	var handleMark = function(id) {
+
+		var mark = '#' + id;
+		var idx = $('#inp-' + id).val();
+
+		$(mark).removeClass('ht0 ht1 ht2 ht3');
+		$(mark).addClass(`ht${idx}`);
+	}
+
 	$(function() {
 
 		// Init
@@ -65,6 +74,10 @@
 		$('#newontop').prop('checked', $('#newontopcurr').val() === '1');
 		$('#stats').prop('checked', $('#statscurr').val() === '1');
  		handleStatsView();
+
+		handleMark('q-avg');
+		handleMark('q-min');
+		handleMark('q-max');
 
 		// Settings
 

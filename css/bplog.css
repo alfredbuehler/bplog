@@ -50,6 +50,30 @@ th, td.label {
     font-weight: bold;
 }
 
+th.mark, td.mark {
+	width: 20px;
+}
+
+div.mark {
+	border-radius: 50%;
+}
+
+div.ht0 {
+	background-color: LawnGreen;
+}
+
+div.ht1 {
+	background-color: Yellow;
+}
+
+div.ht2 {
+	background-color: Orange;
+}
+
+div.ht3 {
+	background-color: Red;
+}
+
 .id-col {
     width: 10px;
 }

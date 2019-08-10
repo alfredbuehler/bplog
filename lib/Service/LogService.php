@@ -4,6 +4,7 @@ namespace OCA\BPLog\Service;
 
 use \OCA\BPLog\Db\Log;
 use \OCA\BPLog\Db\LogMapper;
+use \OCA\BPLog\Service\Evaluator;
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
@@ -13,11 +14,13 @@ class LogService {
 
 	private $appname;
 	private $mapper;
+	private $evaluator;
 
 	public function __construct($AppName,
                                 LogMapper $mapper) {
         $this->appname = $AppName;
         $this->mapper = $mapper;
+		$this->evaluator = new Evaluator(SwissHearts);
 	}
 
 	private function handleException ($e) {
@@ -133,8 +136,21 @@ class LogService {
 		return $rc;
 	}
 
+	private function getIndex($arr) {
+		return $this->evaluator->evaluate($arr['sys'], $arr['dia']);
+	}
+
+	private function addIndex($stats) {
+
+		$stats['avg']['idx'] = $this->getIndex($stats['avg']);
+		$stats['min']['idx'] = $this->getIndex($stats['min']);
+		$stats['max']['idx'] = $this->getIndex($stats['max']);
+
+		return $stats;
+	}
+
 	public function getStats($userId) {
-        return $this->mapper->getStats($userId);
+		return $this->addIndex($this->mapper->getStats($userId));
 	}
 
 	public function clearAll($userId) {
