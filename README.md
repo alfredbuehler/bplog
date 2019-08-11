@@ -14,3 +14,7 @@ Please note, that I've created this app primarily for my personal use. I know th
 * Editing of existing records
 * Export/import your tracking history to/from a CSV-File.
 * RESTful API, for adding records only.
+
+### Release v0.3.0
+* Displays statistics with HT class mark.
+![](https://raw.githubusercontent.com/alfredbuehler/bplog/master/screenshots/statistics.png)
