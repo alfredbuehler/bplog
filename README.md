@@ -1,6 +1,9 @@
 # Blood Pressure Log
 
-**ownCloud app for tracking your blood pressure**
+![Version](https://img.shields.io/github/release/alfredbuehler/bplog.svg)
+![Issues](https://img.shields.io/github/issues/alfredbuehler/bplog.svg)
+
+**[ownCloud](https://owncloud.org) app for tracking your blood pressure**
 
 ![](https://raw.githubusercontent.com/alfredbuehler/bplog/master/screenshots/main.png)
 
@@ -16,5 +19,5 @@ Please note, that I've created this app primarily for my personal use. I know th
 * RESTful API, for adding records only.
 
 ### Release v0.3.0
-* Displays statistics with HT class mark.
+* Displays statistics with HT class mark.   
 ![](https://raw.githubusercontent.com/alfredbuehler/bplog/master/screenshots/statistics.png)
