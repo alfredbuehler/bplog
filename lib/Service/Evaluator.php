@@ -28,9 +28,11 @@ class Evaluator {
 	}
 
 	public function evaluate($sys, $dia) {
-		return max(array(
+		$value = max(array(
 			$this->index($sys, $this->thresholds[0]),
 			$this->index($dia, $this->thresholds[1])
 		));
+		// For 3-stage scales: Skip the value 2 (orange), return 3 (red) instead.
+		return count($this->thresholds[0]) == 2 && $value == 2 ? 3 : $value;
 	}
 }
