@@ -33,6 +33,6 @@ class Evaluator {
 			$this->index($dia, $this->thresholds[1])
 		));
 		// For 3-stage scales: Skip the value 2 (orange), return 3 (red) instead.
-		return count($this->thresholds[0]) == 2 && $value == 2 ? 3 : $value;
+		return count($this->thresholds[0]) === 2 && $value === 2 ? 3 : $value;
 	}
 }

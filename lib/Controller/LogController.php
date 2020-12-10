@@ -105,7 +105,7 @@ class LogController extends Controller {
 			$error[] = 'No file provided for import';
 		} else {
 			if ($file['type'] === 'text/csv') {
-				if ($clear == '1') {
+				if ($clear === '1') {
 					$this->service->clearAll($this->userId);
 				}
 				$error = $this->service->import($file['tmp_name'], $this->userId);

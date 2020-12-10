@@ -2,47 +2,68 @@
 
 namespace OCA\BPLog\Db;
 
-use \OCP\AppFramework\Db\Mapper;
-use \OCP\IDb;
+use OC\DB\QueryBuilder\Literal;
+use OCP\AppFramework\Db\QBMapper;
+use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\IDBConnection;
 
-function buildQuery($item) {
-    return "SELECT " .
-        "$item(systole) as sys, $item(diastole) as dia, $item(pulse) as hrt " .
-        "FROM *PREFIX*bplog_logs WHERE user_id = ?";
-}
+class LogMapper extends QBMapper {
 
-function roundAvg(&$val) {
-    $val = round($val);
-}
-
-class LogMapper extends Mapper {
-
-    public function __construct(IDb $db) {
+    public function __construct(IDBConnection $db) {
         parent::__construct($db, 'bplog_logs', '\OCA\BPLog\Db\Log');
     }
 
     public function find($id, $userId) {
-        $sql = 'SELECT * FROM *PREFIX*bplog_logs WHERE id = ? AND user_id = ?';
-        return $this->findEntity($sql, [$id, $userId]);
+        $qb = $this->db->getQueryBuilder();
+
+        $query = $qb->select('*')
+            ->from($this->getTableName())
+            ->where(
+                $qb->expr()->eq('id', $qb->createNamedParameter($id))
+            )
+            ->andWhere(
+                $qb->expr()->eq('user_id', $qb->createNamedParameter($userId))
+            );
+
+        return $this->findEntities($query);
     }
 
     public function findAll($userId, $newontop) {
-        $sql = 'SELECT * FROM *PREFIX*bplog_logs WHERE user_id = ?';
+        $qb = $this->db->getQueryBuilder();
 
+        $query = $qb->select('*')
+            ->from($this->getTableName())
+            ->where(
+                $qb->expr()->eq('user_id', $qb->createNamedParameter($userId))
+            );
         if ($newontop) {
-            $sql .= ' order by created desc';
+            $query->orderBy('created', 'desc');
         }
-        return $this->findEntities($sql, [$userId]);
+
+        return $this->findEntities($query);
+    }
+
+    private function roundAvg(&$val) {
+        $val = round($val);
     }
 
     public function getStatsItem($userId, $item) {
+        $qb = $this->db->getQueryBuilder();
+        $qb->select(
+            new Literal("$item(systole) as sys"),
+            new Literal("$item(diastole) as dia"),
+            new Literal("$item(pulse) as hrt")
+        )
+        ->from($this->getTableName())
+        ->where(
+            $qb->expr()->eq('user_id', $qb->createNamedParameter($userId))
+        );
+		$arr = $this->findOneQuery($qb);
 
-		$arr = $this->findOneQuery(buildQuery($item), [$userId]);
-
-        if ($item == 'avg') {
-            roundAvg($arr['sys']);
-            roundAvg($arr['dia']);
-            roundAvg($arr['hrt']);
+        if ($item === 'avg') {
+            $this->roundAvg($arr['sys']);
+            $this->roundAvg($arr['dia']);
+            $this->roundAvg($arr['hrt']);
         }
 
         return [
@@ -59,8 +80,10 @@ class LogMapper extends Mapper {
     }
 
 	public function clearAll($userId) {
-		$sql = 'DELETE FROM *PREFIX*bplog_logs WHERE user_id = ?';
-		$this->execute($sql, [$userId]);
+        $qb = $this->db->getQueryBuilder();
+        $qb->delete($this->getTableName())
+            ->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)))
+            ->execute();
 	}
 
 }
